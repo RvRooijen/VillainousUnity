@@ -5,5 +5,6 @@ public class GameEventGainPower : GameEvent
     public override void Execute()
     {
         Villain.IncreasePower(Value);
+        Villain.CurrentState = Villain.State.SelectAction;
     }
 }

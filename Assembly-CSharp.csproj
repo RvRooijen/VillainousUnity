@@ -70,6 +70,7 @@
      <Compile Include="Assets\Scripts\ListExtensions.cs" />
      <Compile Include="Assets\Scripts\Deck.cs" />
      <Compile Include="Assets\Scripts\UniqueObject.cs" />
+     <Compile Include="Assets\Scripts\VillainAI.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:/Program Files/Unity/Hub/Editor/2021.1.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>

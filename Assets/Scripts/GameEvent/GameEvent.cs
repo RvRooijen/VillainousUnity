@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class GameEvent
 {
     protected Villain Villain;
@@ -9,6 +11,6 @@ public class GameEvent
 
     public virtual void Execute()
     {
-        
+        Debug.Log($"Execute event {GetType()}");
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 [Serializable]
@@ -10,12 +11,17 @@ public class Villain
     private int _power = 0;
     public Deck Deck;
     public Realm Realm;
+
+    private VillainAI _ai;
     
     public enum State
     {
         CheckWin,
         Move,
-        PerformActions,
+        SelectAction,
+        Discarding,
+        PlayCard,
+        MoveItemAlly,
         Inactive,
         Won,
         Lost
@@ -24,13 +30,14 @@ public class Villain
     [ShowInInspector]
     private State _currentState = State.Inactive;
 
-    private State CurrentState
+    public State CurrentState
     {
         get => _currentState;
         set
         {
             _currentState = value;
-            StateChangedEvents[value]?.Invoke(this, EventArgs.Empty);
+            if(StateChangedEvents.ContainsKey(value))
+                StateChangedEvents[value]?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -38,23 +45,30 @@ public class Villain
     
     protected Villain(GameSettings gameSettings, VillainData newVillainData)
     {
-        Deck = new Deck(newVillainData);
+        Deck = new Deck(newVillainData, this);
         Deck.Shuffle();
 
         Realm = Object.Instantiate(newVillainData.Realm);
-        Realm.Initialize();
+        Realm.Initialize(this);
         
         StateChangedEvents.Add(State.CheckWin, EnterCheckWinState);
         StateChangedEvents.Add(State.Move, EnterMoveState);
         StateChangedEvents.Add(State.Won, EnterWonState);
         StateChangedEvents.Add(State.Lost, EnterLostState);
-        StateChangedEvents.Add(State.PerformActions, EnterPerformActionsState);
+        StateChangedEvents.Add(State.SelectAction, EnterPerformActionsState);
+        StateChangedEvents.Add(State.Discarding, EnterPerformActionsDiscard);
+        StateChangedEvents.Add(State.PlayCard, EnterPlayCardState);
+        StateChangedEvents.Add(State.MoveItemAlly, EnterMoveItemAllyState);
         
         Deck.FillHand();
+
+        _ai = new VillainAI(this);
     }
 
     public virtual void StartTurn()
     {
+        Debug.Log($"{GetType()} {nameof(StartTurn)}");
+        Realm.Locations.ForEach(location => location.PlayerActions.ForEach(action => action.Reset()));
         CurrentState = State.CheckWin;
     }
 
@@ -72,6 +86,20 @@ public class Villain
     {
         
     }
+    public virtual void EnterPerformActionsDiscard(object sender, EventArgs e)
+    {
+        
+    }
+    
+    private void EnterPlayCardState(object sender, EventArgs e)
+    {
+        
+    }
+    
+    private void EnterMoveItemAllyState(object sender, EventArgs e)
+    {
+        
+    }
     
     public virtual void EnterWonState(object sender, EventArgs e)
     {
@@ -85,6 +113,7 @@ public class Villain
     
     public virtual void EndTurn()
     {
+        Debug.Log($"{GetType()} {nameof(EndTurn)}");
         Deck.FillHand();
         CurrentState = State.Inactive;
     }

@@ -7,21 +7,24 @@ using Object = UnityEngine.Object;
 [Serializable]
 public class Deck
 {
+    [NonSerialized]
+    private Villain _villain;
     public List<Card> Hand;
     
     public List<Card> FateDeck;
     public List<Card> VillainDeck;
     public List<Card> FateDiscard;
     public List<Card> VillainDiscard;
-    
+
     public enum DeckType
     {
         Fate,
         Villain
     }
 
-    public Deck(VillainData newVillainData)
+    public Deck(VillainData newVillainData, Villain villain)
     {
+        _villain = villain;
         FateDiscard = new List<Card>();
         VillainDiscard = new List<Card>();
         Hand = new List<Card>();
@@ -35,7 +38,9 @@ public class Deck
         List<Card> cards = new List<Card>();
         for (int i = 0; i < pair.Value; i++)
         {
-            cards.Add(Object.Instantiate(pair.Key));
+            var newCard = Object.Instantiate(pair.Key);
+            cards.Add(newCard);
+            newCard.Initialize(_villain);
         }
         return cards;
     }
@@ -46,17 +51,18 @@ public class Deck
         FateDeck.Shuffle();
     }
 
-    public void Discard(int index, List<Card> discard)
+    public Card Discard(int index, List<Card> from, List<Card> to)
     {
-        if (Hand.Count > index)
+        if (from.Count > index)
         {
-            discard.Add(Hand[index]);
-            Hand.RemoveAt(index);
+            var card = from[index];
+            to.Add(card);
+            from.RemoveAt(index);
+            return card;
         }
-        else
-        {
-            Debug.LogWarning($"No card found in hand on index {index}");
-        }
+
+        Debug.LogWarning($"No card found in from on index {index}");
+        return null;
     }
 
     public void FillHand()
@@ -76,7 +82,7 @@ public class Deck
         {
             if (!deck.Any()) break;
             cards.Add(deck.Last());
-            cards.RemoveAt(0);
+            deck.RemoveAt(deck.Count-1);
         }
         return cards;
     }

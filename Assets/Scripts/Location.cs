@@ -10,8 +10,9 @@ public class Location : SerializedScriptableObject
 {
     public List<PlayerAction> PlayerActions = new List<PlayerAction>();
     
-    public void Initialize()
+    public void Initialize(Villain villain)
     {
         PlayerActions = PlayerActions.Select(Instantiate).ToList();
+        PlayerActions.ForEach(action => action.Initialize(villain));
     }
 }
