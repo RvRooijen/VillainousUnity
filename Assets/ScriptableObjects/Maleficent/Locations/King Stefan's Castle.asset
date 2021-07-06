@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 730e7e8f3d6a3ee45b01b0557cec90d3, type: 3}
+  m_Name: King Stefan's Castle
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  PlayerActions:
+  - {fileID: 11400000, guid: 27bdcc79c8446824c9dbb63714208e6e, type: 2}
+  - {fileID: 11400000, guid: 6b4f9595c8cf1664585a5f786ec0a3ad, type: 2}
+  - {fileID: 11400000, guid: d402e99f7d7d3124e9e093deb159c2ac, type: 2}
+  - {fileID: 11400000, guid: 0652dee132572254aa48a0a9eb4faa18, type: 2}
