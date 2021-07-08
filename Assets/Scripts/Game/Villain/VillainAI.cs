@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VillainAI
+public class VillainAI : VillainController
 {
     private Villain _villain;
 
@@ -27,7 +27,7 @@ public class VillainAI
     {
         var locations = _villain.Realm.Locations.ToList();
         locations.Remove(_villain.Realm.CurrentLocation);
-        locations.Shuffle();
+        locations.Shuffle(_villain.Random);
         return locations.First();
     }
 

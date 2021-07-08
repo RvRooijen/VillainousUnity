@@ -47,8 +47,8 @@ public class Deck
 
     public void Shuffle()
     {
-        VillainDeck.Shuffle();
-        FateDeck.Shuffle();
+        VillainDeck.Shuffle(_villain.Random);
+        FateDeck.Shuffle(_villain.Random);
     }
 
     public Card Discard(int index, List<Card> from, List<Card> to)

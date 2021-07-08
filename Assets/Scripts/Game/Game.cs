@@ -9,6 +9,7 @@ public struct GameSettings
 {
     public int HandSize;
     public int MaxPlayers;
+    public Random Random;
 }
 
 [Serializable]

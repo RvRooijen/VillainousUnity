@@ -19,8 +19,14 @@ public class Realm : SerializedScriptableObject
         CurrentLocation = Locations.First();
     }
 
-    public void Move(Location location)
+    public bool Move(Location location)
     {
+        if (location == CurrentLocation)
+        {
+            Debug.LogWarning($"Villain tries to move to current location, this is not allowed");
+            return false;
+        }
+        
         if (_villain.CurrentState == Villain.State.Move)
         {
             Debug.Log($"Move from {CurrentLocation.name} to {location.name}");
@@ -29,7 +35,10 @@ public class Realm : SerializedScriptableObject
         }
         else
         {
-            Debug.LogWarning($"Villain tries to move but is not in move state");
+            Debug.LogWarning($"Villain tries to move but is not in move state. Current state {_villain.CurrentState}");
+            return false;
         }
+
+        return true;
     }
 }

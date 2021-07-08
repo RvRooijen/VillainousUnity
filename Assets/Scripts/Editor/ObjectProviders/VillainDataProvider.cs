@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEngine;
 
-public class VillainDataProvider : IEnumerable<VillainData>
+namespace Editor.ObjectProviders
 {
+    public class VillainDataProvider : IEnumerable<VillainData>
+    {
         protected string filter = "t:VillainData";
         protected string[] searchFolders = new[] {"Assets/ScriptableObjects"};
 
@@ -18,4 +19,5 @@ public class VillainDataProvider : IEnumerable<VillainData>
         }
 
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable<VillainData>) this).GetEnumerator();
+    }
 }

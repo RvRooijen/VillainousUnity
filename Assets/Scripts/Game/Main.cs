@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Main : MonoBehaviour
@@ -14,7 +13,8 @@ public class Main : MonoBehaviour
         Game = new Game(new GameSettings()
         {
             HandSize = 4,
-            MaxPlayers = 0
+            MaxPlayers = 0,
+            Random = new System.Random()
         }, P1, P2);
     }
 }

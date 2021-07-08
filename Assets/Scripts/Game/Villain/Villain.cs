@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = System.Random;
 
 [Serializable]
 public class Villain
 {
+    public Random Random;
+    
     [ShowInInspector]
     private int _power = 0;
     public Deck Deck;
     public Realm Realm;
 
-    private VillainAI _ai;
+    private VillainController _controller;
     
     public enum State
     {
@@ -45,6 +48,7 @@ public class Villain
     
     protected Villain(GameSettings gameSettings, VillainData newVillainData)
     {
+        Random = gameSettings.Random;
         Deck = new Deck(newVillainData, this);
         Deck.Shuffle();
 
@@ -59,8 +63,6 @@ public class Villain
         StateChangedEvents.Add(State.Discarding, EnterPerformActionsDiscard);
         StateChangedEvents.Add(State.PlayCard, EnterPlayCardState);
         StateChangedEvents.Add(State.MoveItemAlly, EnterMoveItemAllyState);
-
-        _ai = new VillainAI(this);
     }
 
     public virtual void StartTurn()
