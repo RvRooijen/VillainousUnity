@@ -21,23 +21,16 @@ public class Realm : SerializedScriptableObject
 
     public bool Move(Location location)
     {
+        if (!_villain.IsInCorrectState(Villain.State.Move)) return false;
         if (location == CurrentLocation)
         {
             Debug.LogWarning($"Villain tries to move to current location, this is not allowed");
             return false;
         }
         
-        if (_villain.CurrentState == Villain.State.Move)
-        {
-            Debug.Log($"Move from {CurrentLocation.name} to {location.name}");
-            CurrentLocation = location;
-            _villain.CurrentState = Villain.State.SelectAction;
-        }
-        else
-        {
-            Debug.LogWarning($"Villain tries to move but is not in move state. Current state {_villain.CurrentState}");
-            return false;
-        }
+        Debug.Log($"Move from {CurrentLocation.name} to {location.name}");
+        CurrentLocation = location;
+        _villain.CurrentState = Villain.State.SelectAction;
 
         return true;
     }

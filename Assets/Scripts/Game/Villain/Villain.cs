@@ -122,4 +122,22 @@ public class Villain
     {
         _power += value;
     }
+
+    public void PlayCard(Card card, Location location)
+    {
+        if (IsInCorrectState(State.PlayCard)) return;
+        location.PlacedCards.Add(card);
+        card.Play();
+    }
+
+    public bool IsInCorrectState(State state)
+    {
+        if (state == CurrentState)
+        {
+            return true;
+        }
+
+        Debug.LogWarning($"Need to be in {state}. Current state {CurrentState}");
+        return false;
+    }
 }

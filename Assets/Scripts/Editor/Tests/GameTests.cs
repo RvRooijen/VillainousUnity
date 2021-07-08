@@ -1,8 +1,9 @@
-using System;
 using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEditor;
+using UnityEngine;
+using Random = System.Random;
 
 namespace Editor.Tests
 {
@@ -43,11 +44,22 @@ namespace Editor.Tests
         }
         
         [Test, Order(2)]
-        public void FirstPlayer_ShouldMove()
+        public void FirstPlayer_ShouldMoveToBriarRoseCottage()
         {
             Game game = CreateGame();
             var firstPlayer = game.Players.First();
             firstPlayer.Realm.Move(firstPlayer.Realm.Locations[1]).Should().BeTrue();
+            firstPlayer.Realm.CurrentLocation.name.Should().Be("Briar Rose's Cottage(Clone)");
+        }
+        
+        [Test, Order(2)]
+        public void FirstPlayer_LastCardInHand_ShouldBeSinisterGoon()
+        {
+            Game game = CreateGame();
+            var firstPlayer = game.Players.First();
+            firstPlayer.Deck.FillHand();
+            var hand = firstPlayer.Deck.Hand;
+            hand[3].name.Should().Be("Sinister Goon(Clone)");
         }
         
         [Test, Order(2)]
@@ -56,6 +68,17 @@ namespace Editor.Tests
             Game game = CreateGame();
             var firstPlayer = game.Players.First();
             firstPlayer.Realm.Move(firstPlayer.Realm.Locations[1]).Should().BeTrue();
+            firstPlayer.Realm.CurrentLocation.name.Should().Be("Briar Rose's Cottage(Clone)");
+
+            firstPlayer.Deck.FillHand();
+
+            var card = firstPlayer.Deck.Hand[3];
+            firstPlayer.PlayCard(card, firstPlayer.Realm.Locations[1]);
+            firstPlayer.Deck.Hand.Count.Should().Be(4);
+            
+            firstPlayer.Realm.CurrentLocation.PlayerActions.First(action => action.GameEvent is GameEventPlayCard).Execute();
+            firstPlayer.PlayCard(card, firstPlayer.Realm.Locations[1]);
+            firstPlayer.Deck.Hand.Count.Should().Be(3);
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Editor.Tests
             _villain.GetType().Should().Be(_villainData.BehaviorType);
         }
     
+        
         [Test, Order(3)]
         public void VillainShouldHaveValidDeck()
         {
