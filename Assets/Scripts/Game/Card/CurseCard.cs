@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Create ItemCard", fileName = "ItemCard", order = 0)]
-public class ItemCard : Card
+[CreateAssetMenu(menuName = "Create CurseCard", fileName = "CurseCard", order = 0)]
+public class CurseCard : Card
 {
     public override void Play()
     {
@@ -15,7 +13,7 @@ public class ItemCard : Card
         throw new System.NotImplementedException();
     }
 
-    public override void Execute()
+    protected override void Execute()
     {
         throw new System.NotImplementedException();
     }

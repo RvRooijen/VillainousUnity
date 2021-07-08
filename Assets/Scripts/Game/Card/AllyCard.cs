@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Create ConditionCard", fileName = "ConditionCard", order = 0)]
-public class ConditionCard : Card
+[CreateAssetMenu(menuName = "Create AllyCard", fileName = "AllyCard", order = 0)]
+public class AllyCard : Card
 {
     public override void Play()
     {
@@ -13,7 +13,7 @@ public class ConditionCard : Card
         throw new System.NotImplementedException();
     }
 
-    public override void Execute()
+    protected override void Execute()
     {
         throw new System.NotImplementedException();
     }

@@ -41,36 +41,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CurseCard.cs" />
-     <Compile Include="Assets\Scripts\PlayerAction.cs" />
-     <Compile Include="Assets\Scripts\Game.cs" />
-     <Compile Include="Assets\Scripts\AllyCard.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventGainPower.cs" />
-     <Compile Include="Assets\Scripts\Card.cs" />
-     <Compile Include="Assets\Scripts\ItemCard.cs" />
-     <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\Scripts\Location.cs" />
-     <Compile Include="Assets\Scripts\VillainData.cs" />
-     <Compile Include="Assets\Scripts\Maleficent.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEvent.cs" />
-     <Compile Include="Assets\Scripts\ConditionCard.cs" />
-     <Compile Include="Assets\Scripts\Villain.cs" />
-     <Compile Include="Assets\Scripts\Power.cs" />
-     <Compile Include="Assets\Scripts\EffectCard.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventPlayCard.cs" />
-     <Compile Include="Assets\Scripts\HeroCard.cs" />
-     <Compile Include="Assets\Scripts\Realm.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventMoveHero.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventActivate.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventDiscard.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventMoveItemAlly.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventVanquish.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventFate.cs" />
-     <Compile Include="Assets\Scripts\GameEvent\GameEventRevealAndPlay.cs" />
-     <Compile Include="Assets\Scripts\ListExtensions.cs" />
-     <Compile Include="Assets\Scripts\Deck.cs" />
-     <Compile Include="Assets\Scripts\UniqueObject.cs" />
-     <Compile Include="Assets\Scripts\VillainAI.cs" />
+     <Compile Include="Assets\Scripts\ObjectProviders\VillainDataProvider.cs" />
      <Reference Include="UnityEngine">
      <HintPath>C:/Program Files/Unity/Hub/Editor/2021.1.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
      </Reference>
@@ -760,6 +731,9 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:/Projects/Villainous/Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
+     </Reference>
+     <Reference Include="BoundfoxStudios.FluentAssertions">
+     <HintPath>C:/Projects/Villainous/Library/ScriptAssemblies/BoundfoxStudios.FluentAssertions.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

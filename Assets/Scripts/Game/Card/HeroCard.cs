@@ -18,7 +18,7 @@ public class HeroCard : Card
         throw new System.NotImplementedException();
     }
 
-    public override void Execute()
+    protected override void Execute()
     {
         throw new System.NotImplementedException();
     }

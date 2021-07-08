@@ -24,30 +24,27 @@ MonoBehaviour:
     - Name: Guid
       Entry: 2
       Data: 5bf01efa1766419589370d62f2afaed3
-    - Name: PlayedEvents
+    - Name: GameEvents
       Entry: 7
-      Data: 0|System.Collections.Generic.List`1[[GameEvent, Assembly-CSharp]], mscorlib
+      Data: 0|System.Collections.Generic.List`1[[Card+TriggerEvent, Game]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|GameEventRevealAndPlay, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: DiscardEvents
-      Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[GameEvent, Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
+      Data: Card+TriggerEvent, Game
+    - Name: TriggerType
+      Entry: 3
       Data: 0
+    - Name: GameEvent
+      Entry: 7
+      Data: 1|GameEventRevealAndPlay, Game
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

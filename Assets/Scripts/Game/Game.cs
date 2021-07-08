@@ -27,7 +27,11 @@ public class Game
             Villain newVillain = Activator.CreateInstance(newVillainData.BehaviorType, p) as Villain;
             Players.Add(newVillain);
         }
-        
-        Players.First().StartTurn();
+    }
+
+    public void Start()
+    {
+        Players.First()
+            .StartTurn();
     }
 }

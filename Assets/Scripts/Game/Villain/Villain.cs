@@ -59,8 +59,6 @@ public class Villain
         StateChangedEvents.Add(State.Discarding, EnterPerformActionsDiscard);
         StateChangedEvents.Add(State.PlayCard, EnterPlayCardState);
         StateChangedEvents.Add(State.MoveItemAlly, EnterMoveItemAllyState);
-        
-        Deck.FillHand();
 
         _ai = new VillainAI(this);
     }
