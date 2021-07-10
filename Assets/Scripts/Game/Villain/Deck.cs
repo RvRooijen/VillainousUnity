@@ -38,7 +38,7 @@ public class Deck
         List<Card> cards = new List<Card>();
         for (int i = 0; i < pair.Value; i++)
         {
-            var newCard = Object.Instantiate(pair.Key);
+            Card newCard = Object.Instantiate(pair.Key);
             cards.Add(newCard);
             newCard.Initialize(_villain);
         }

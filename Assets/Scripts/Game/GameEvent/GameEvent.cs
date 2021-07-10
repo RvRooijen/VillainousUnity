@@ -4,6 +4,7 @@ public class GameEvent
 {
     public enum TriggerType
     {
+        OnCanPlayOtherCard,
         OnPlay,
         OnActivate,
         OnDiscard
@@ -16,8 +17,9 @@ public class GameEvent
         Villain = villain;
     }
 
-    public virtual void Execute()
+    public virtual bool Execute(params Card[] cards)
     {
         Debug.Log($"Execute event {GetType()}");
+        return true;
     }
 }

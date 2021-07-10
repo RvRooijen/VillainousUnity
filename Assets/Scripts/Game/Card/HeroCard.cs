@@ -7,19 +7,4 @@ public class HeroCard : Card
 {
     [ShowInInspector]
     private int _strength;
-    
-    public override void Play()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Discard()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override void Execute()
-    {
-        throw new System.NotImplementedException();
-    }
 }

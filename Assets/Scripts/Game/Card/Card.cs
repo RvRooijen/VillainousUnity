@@ -12,9 +12,7 @@ public abstract class Card : UniqueObject
     }
     
     protected Villain Villain;
-    
-    [ShowInInspector]
-    private int _powerCost;
+    public int PowerCost;
 
     public List<TriggerEvent> GameEvents = new List<TriggerEvent>();
     
@@ -23,6 +21,11 @@ public abstract class Card : UniqueObject
         Villain = villain;
     }
 
+    public virtual bool OnCanPlayOtherCard(Card card)
+    {
+        return ExecuteEvents(GameEvent.TriggerType.OnCanPlayOtherCard, card);
+    }
+    
     public virtual void Play()
     {
         ExecuteEvents(GameEvent.TriggerType.OnPlay);
@@ -38,17 +41,10 @@ public abstract class Card : UniqueObject
         ExecuteEvents(GameEvent.TriggerType.OnActivate);
     }
 
-    protected virtual void Execute()
+    private bool ExecuteEvents(GameEvent.TriggerType triggerType, params Card[] cards)
     {
-        
-    }
-
-    private void ExecuteEvents(GameEvent.TriggerType triggerType)
-    {
-        GameEvents
+        return GameEvents
             .Where(e => e.TriggerType == triggerType)
-            .ForEach(e => e.GameEvent.Execute());
-        
-        Execute();
+            .All(e => e.GameEvent.Execute(cards));
     }
 }

@@ -20,4 +20,19 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: Guid
+      Entry: 2
+      Data: 0d1b06edf0fb4965913f89d122af1d73
+    - Name: GameEvents
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[Card+TriggerEvent, Game]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

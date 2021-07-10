@@ -21,9 +21,9 @@ public class Game
     {
         Players = new List<Villain>();
         
-        foreach (VillainData villain in players)
+        foreach (VillainData villainData in players)
         {
-            VillainData newVillainData = Object.Instantiate(villain);
+            VillainData newVillainData = Object.Instantiate(villainData);
             object[] p = { gameSettings, newVillainData };
             Villain newVillain = Activator.CreateInstance(newVillainData.BehaviorType, p) as Villain;
             Players.Add(newVillain);

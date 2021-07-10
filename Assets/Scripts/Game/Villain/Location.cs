@@ -10,16 +10,23 @@ using UnityEngine.Serialization;
 public class Location : SerializedScriptableObject
 {
     public List<PlayerAction> PlayerActions;
-    public List<Card> PlacedCards;
+    public List<Card> PlacedVillainCards;
+    public List<Card> PlacedFateCards;
     
-    public void CanPlayCard(Card card)
+    public void PlayVillainCard(Card card)
     {
-        
+        PlacedVillainCards.Add(card);
     }
 
+    public void PlayFateCard(Card card)
+    {
+        PlacedFateCards.Add(card);
+    }
+    
     public void Initialize(Villain villain)
     {
-        PlacedCards = new List<Card>();
+        PlacedVillainCards = new List<Card>();
+        PlayerActions = PlayerActions.Select(Instantiate).ToList();
         PlayerActions.ForEach(action => action.Initialize(villain));
     }
 }

@@ -12,6 +12,8 @@ public class Villain
     
     [ShowInInspector]
     private int _power = 0;
+    public int Power => _power;
+    
     public Deck Deck;
     public Realm Realm;
 
@@ -30,6 +32,15 @@ public class Villain
         Lost
     }
 
+    public enum PlayCardFailType
+    {
+        None,
+        InsufficientPower,
+        NotInHand,
+        BlockedByCard,
+        IncorrectState
+    }
+    
     [ShowInInspector]
     private State _currentState = State.Inactive;
 
@@ -123,11 +134,69 @@ public class Villain
         _power += value;
     }
 
-    public void PlayCard(Card card, Location location)
+    public bool PayPower(int cost)
     {
-        if (IsInCorrectState(State.PlayCard)) return;
-        location.PlacedCards.Add(card);
+        if (cost > _power) return false;
+        _power -= cost;
+        return true;
+    }
+    
+    public void PlayVillainCard(Card card, Location location)
+    {
+        if (!CanPlayCard(card, location, out var reason))
+        {
+            Debug.Log(reason);
+            return;
+        }
+
+        Deck.Hand.Remove(card);
+        location.PlacedVillainCards.Add(card);
+        
         card.Play();
+        
+        Debug.Log($"Played {card} to {location}");
+    }
+
+    private bool CanPlayCard(Card card, Location location, out PlayCardFailType failType)
+    {
+        if (!IsInCorrectState(State.PlayCard))
+        {
+            failType = PlayCardFailType.IncorrectState;
+            return false;
+        }
+
+        if (!Deck.Hand.Contains(card))
+        {
+            failType = PlayCardFailType.NotInHand;
+            return false;
+        }
+
+        if (!IsAllowedByOtherCard(card, location))
+        {
+            failType = PlayCardFailType.BlockedByCard;
+            return false;
+        }
+
+        if (!PayPower(card.PowerCost))
+        {
+            failType = PlayCardFailType.InsufficientPower;
+            return false;
+        }
+        
+        failType = PlayCardFailType.None;
+        return true;
+    }
+
+    private bool IsAllowedByOtherCard(Card card, Location location)
+    {
+        foreach (Card placedCard in location.PlacedVillainCards)
+        {
+            if (placedCard.OnCanPlayOtherCard(card)) continue;
+            Debug.Log($"Can't play card {card} because of {placedCard}");
+            return false;
+        }
+
+        return true;
     }
 
     public bool IsInCorrectState(State state)

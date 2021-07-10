@@ -11,7 +11,7 @@ public class GameEventRevealAndPlay : GameEvent
     [ShowInInspector]
     private Type _cardTypeToMatch;
     
-    public override void Execute()
+    public override bool Execute(params Card[] cards)
     {
         switch (_revealFromDeckType)
         {
@@ -36,5 +36,7 @@ public class GameEventRevealAndPlay : GameEvent
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
+        return true;
     }
 }
