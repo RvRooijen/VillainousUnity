@@ -48,12 +48,7 @@ public class VillainAI : VillainController
     private void EnterDiscardingState(object sender, EventArgs e)
     {
         Debug.Log($"{nameof(VillainAI)} - {nameof(EnterDiscardingState)}");
-        while (_villain.Deck.Hand.Any())
-        {
-            var discarded = _villain.Deck.Discard(0, _villain.Deck.Hand, _villain.Deck.VillainDiscard);
-            Debug.Log($"Discarding {discarded.name}");
-        }
-
+        _villain.cardManagement.Hand.ForEach(_villain.cardManagement.DiscardFromHand);
         _villain.CurrentState = Villain.State.SelectAction;
     }
     

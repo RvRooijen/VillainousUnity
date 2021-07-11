@@ -6,7 +6,7 @@ using Sirenix.OdinInspector;
 public class GameEventRevealAndPlay : GameEvent
 {
     [ShowInInspector]
-    private Deck.DeckType _revealFromDeckType;
+    private CardManagement.DeckType _revealFromDeckType;
 
     [ShowInInspector]
     private Type _cardTypeToMatch;
@@ -15,8 +15,8 @@ public class GameEventRevealAndPlay : GameEvent
     {
         switch (_revealFromDeckType)
         {
-            case Deck.DeckType.Fate:
-                List<Card> drawnCard = Villain.Deck.GetCards(Villain.Deck.FateDeck, 1);
+            case CardManagement.DeckType.Fate:
+                List<Card> drawnCard = Villain.cardManagement.FateDeck.GetCardsFromDrawPile(1, true);
                 if (drawnCard.Any())
                 {
                     Card card = drawnCard.First();
@@ -27,11 +27,11 @@ public class GameEventRevealAndPlay : GameEvent
                     else
                     {
                         // Put card back in deck
-                        Villain.Deck.FateDeck.Add(card);
+                        Villain.cardManagement.FateDeck.AddCardsToDrawPile(card);
                     }
                 }
                 break;
-            case Deck.DeckType.Villain:
+            case CardManagement.DeckType.Villain:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

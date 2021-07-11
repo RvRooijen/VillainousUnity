@@ -14,7 +14,7 @@ public class Villain
     private int _power = 0;
     public int Power => _power;
     
-    public Deck Deck;
+    public CardManagement cardManagement;
     public Realm Realm;
 
     private VillainController _controller;
@@ -27,6 +27,7 @@ public class Villain
         Discarding,
         PlayCard,
         MoveItemAlly,
+        Fate,
         Inactive,
         Won,
         Lost
@@ -60,8 +61,8 @@ public class Villain
     protected Villain(GameSettings gameSettings, VillainData newVillainData)
     {
         Random = gameSettings.Random;
-        Deck = new Deck(newVillainData, this);
-        Deck.Shuffle();
+        cardManagement = new CardManagement(newVillainData, this);
+        cardManagement.VillainDeck.ShuffleDrawPile();
 
         Realm = Object.Instantiate(newVillainData.Realm);
         Realm.Initialize(this);
@@ -74,6 +75,7 @@ public class Villain
         StateChangedEvents.Add(State.Discarding, EnterPerformActionsDiscard);
         StateChangedEvents.Add(State.PlayCard, EnterPlayCardState);
         StateChangedEvents.Add(State.MoveItemAlly, EnterMoveItemAllyState);
+        StateChangedEvents.Add(State.Fate, EnterFateState);
     }
 
     public virtual void StartTurn()
@@ -122,10 +124,15 @@ public class Villain
         
     }
     
+    public virtual void EnterFateState(object sender, EventArgs e)
+    {
+        
+    }
+    
     public virtual void EndTurn()
     {
         Debug.Log($"{GetType()} {nameof(EndTurn)}");
-        Deck.FillHand();
+        cardManagement.FillHand();
         CurrentState = State.Inactive;
     }
 
@@ -149,7 +156,7 @@ public class Villain
             return;
         }
 
-        Deck.Hand.Remove(card);
+        cardManagement.Hand.Remove(card);
         location.PlacedVillainCards.Add(card);
         
         card.Play();
@@ -165,7 +172,7 @@ public class Villain
             return false;
         }
 
-        if (!Deck.Hand.Contains(card))
+        if (!cardManagement.Hand.Contains(card))
         {
             failType = PlayCardFailType.NotInHand;
             return false;
@@ -208,5 +215,10 @@ public class Villain
 
         Debug.LogWarning($"Need to be in {state}. Current state {CurrentState}");
         return false;
+    }
+
+    public List<Card> GetFateOptions()
+    {
+        return cardManagement.FateDeck.GetCardsFromDrawPile(2, true);
     }
 }

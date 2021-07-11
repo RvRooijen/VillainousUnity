@@ -37,18 +37,18 @@ namespace Editor.Tests
         [Test, Order(3)]
         public void VillainShouldHaveValidDeck()
         {
-            Assert.NotNull(_villain.Deck);
-            _villain.Deck.FateDeck.Count.Should().Be(15);
-            _villain.Deck.VillainDeck.Count.Should().Be(30);
-            _villain.Deck.FateDiscard.Count.Should().Be(0);
-            _villain.Deck.VillainDiscard.Count.Should().Be(0);
+            Assert.NotNull(_villain.cardManagement);
+            _villain.cardManagement.FateDeck.CardsInDrawPile.Should().Be(15);
+            _villain.cardManagement.VillainDeck.CardsInDrawPile.Should().Be(30);
+            _villain.cardManagement.FateDeck.CardsInDiscardPile.Should().Be(0);
+            _villain.cardManagement.VillainDeck.CardsInDiscardPile.Should().Be(0);
         }
     
         [Test, Order(4)]
         public void VillainShouldDrawCards()
         {
-            _villain.Deck.FillHand();
-            _villain.Deck.Hand.Count.Should().Be(4);
+            _villain.cardManagement.FillHand();
+            _villain.cardManagement.Hand.Count.Should().Be(4);
         }
     
         [Test]

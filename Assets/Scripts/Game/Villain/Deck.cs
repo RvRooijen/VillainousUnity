@@ -1,38 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
-[Serializable]
 public class Deck
 {
-    [NonSerialized]
-    private Villain _villain;
-    public List<Card> Hand;
+    private readonly List<Card> _drawPile;
+    private readonly List<Card> _discardPile;
+    private readonly Villain _villain;
+
+    public int CardsInDrawPile => _drawPile.Count;
+    public int CardsInDiscardPile => _discardPile.Count;
     
-    public List<Card> FateDeck;
-    public List<Card> VillainDeck;
-    public List<Card> FateDiscard;
-    public List<Card> VillainDiscard;
-
-    public enum DeckType
-    {
-        Fate,
-        Villain
-    }
-
-    public Deck(VillainData newVillainData, Villain villain)
+    public Deck(Dictionary<Card, int> cards, Villain villain)
     {
         _villain = villain;
-        FateDiscard = new List<Card>();
-        VillainDiscard = new List<Card>();
-        Hand = new List<Card>();
-
-        FateDeck = newVillainData.FateDeck.SelectMany(InstantiateCards).ToList();
-        VillainDeck = newVillainData.VillainDeck.SelectMany(InstantiateCards).ToList();
+        _drawPile = cards.SelectMany(InstantiateCards).ToList();
+        _drawPile.ForEach(card => card.Initialize(_villain));
+        _discardPile = new List<Card>();
     }
-    
+        
     private List<Card> InstantiateCards(KeyValuePair<Card, int> pair)
     {
         List<Card> cards = new List<Card>();
@@ -40,55 +27,65 @@ public class Deck
         {
             Card newCard = Object.Instantiate(pair.Key);
             cards.Add(newCard);
-            newCard.Initialize(_villain);
         }
         return cards;
     }
-
-    public void Shuffle()
+        
+    public void ShuffleDrawPile()
     {
-        VillainDeck.Shuffle(_villain.Random);
-        FateDeck.Shuffle(_villain.Random);
+        _drawPile.Shuffle(_villain.Random);
     }
 
-    public Card Discard(int index, List<Card> from, List<Card> to)
+    public void ShuffleDiscardPile()
     {
-        if (from.Count > index)
-        {
-            var card = from[index];
-            to.Add(card);
-            from.RemoveAt(index);
-            return card;
-        }
-
-        Debug.LogWarning($"No card found in from on index {index}");
-        return null;
-    }
-
-    public void FillHand()
-    {
-        AddToHand(GetCards(VillainDeck, EmptyHandSpots()));
+        _discardPile.Shuffle(_villain.Random);
     }
     
-    public void AddToHand(List<Card> cards)
+    public void ShuffleDiscardIntoDeck()
     {
-        Hand.AddRange(cards);
+        _drawPile.AddRange(_discardPile);
+        _discardPile.Clear();
+        ShuffleDrawPile();
     }
-
-    public List<Card> GetCards(List<Card> deck, int amount)
+    
+    public List<Card> GetCardsFromDrawPile(int amount, bool remove)
     {
         List<Card> cards = new List<Card>();
         for (int i = 0; i < amount; i++)
         {
-            if (!deck.Any()) break;
-            cards.Add(deck.Last());
-            deck.RemoveAt(deck.Count-1);
+            if (!_drawPile.Any()) ShuffleDiscardIntoDeck();
+            cards.Add(_drawPile.Last());
+            if(remove)
+                _drawPile.RemoveAt(_drawPile.Count-1);
+        }
+        return cards;
+    }
+    
+    public List<Card> GetCardsFromDiscardPile(int amount, bool remove)
+    {
+        List<Card> cards = new List<Card>();
+        for (int i = 0; i < amount; i++)
+        {
+            if (!_discardPile.Any()) break;
+            cards.Add(_discardPile.Last());
+            if(remove)
+                _discardPile.RemoveAt(_discardPile.Count-1);
         }
         return cards;
     }
 
-    public int EmptyHandSpots()
+    public List<Card> RevealFromDeck(int amount)
     {
-        return 4 - Hand.Count;
+        throw new NotImplementedException();
+    }
+
+    public void AddCardsToDrawPile(params Card[] cards)
+    {
+        _drawPile.AddRange(cards);
+    }
+
+    public void AddCardsToDiscardPile(params Card[] cards)
+    {
+        _discardPile.AddRange(cards);
     }
 }

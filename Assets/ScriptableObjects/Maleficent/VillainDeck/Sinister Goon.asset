@@ -36,3 +36,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  PowerCost: 2
