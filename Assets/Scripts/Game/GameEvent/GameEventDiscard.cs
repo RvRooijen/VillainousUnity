@@ -1,10 +1,12 @@
-﻿public class GameEventDiscard : GameEvent
+﻿using System;
+
+public class GameEventDiscard : GameEvent
 {
-    public override bool Execute(params Card[] cards)
+    public override bool Execute(Villain owner, params Card[] cards)
     {
         if (Villain.CurrentState == Villain.State.SelectAction)
         {
-            Villain.CurrentState = Villain.State.Discarding;
+            Villain.SetState(Villain.State.Discarding, EventArgs.Empty);
         }
 
         return true;

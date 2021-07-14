@@ -1,8 +1,10 @@
-﻿public class GameEventMoveItemAlly : GameEvent
+﻿using System;
+
+public class GameEventMoveItemAlly : GameEvent
 {
-    public override bool Execute(params Card[] cards)
+    public override bool Execute(Villain owner, params Card[] cards)
     {
-        Villain.CurrentState = Villain.State.MoveItemAlly;
+        Villain.SetState(Villain.State.PickMoveItemAlly, EventArgs.Empty);
         return true;
     }
 }

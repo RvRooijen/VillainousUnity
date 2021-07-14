@@ -1,8 +1,10 @@
-﻿public class GameEventFate : GameEvent
+﻿using System;
+
+public class GameEventFate : GameEvent
 {
-    public override bool Execute(params Card[] cards)
+    public override bool Execute(Villain owner, params Card[] cards)
     {
-        Villain.CurrentState = Villain.State.Fate;
+        Villain.SetState(Villain.State.ChooseFateTarget, EventArgs.Empty);
         return true;
     }
 }

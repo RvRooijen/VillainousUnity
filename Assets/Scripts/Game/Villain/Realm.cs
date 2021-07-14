@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ public class Realm : SerializedScriptableObject
         
         Debug.Log($"Move from {CurrentLocation.name} to {location.name}");
         CurrentLocation = location;
-        _villain.CurrentState = Villain.State.SelectAction;
+        _villain.SetState(Villain.State.SelectAction, EventArgs.Empty);
 
         return true;
     }

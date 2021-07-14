@@ -1,8 +1,10 @@
-﻿public class GameEventPlayCard : GameEvent
+﻿using System;
+
+public class GameEventPlayCard : GameEvent
 {
-    public override bool Execute(params Card[] cards)
+    public override bool Execute(Villain owner, params Card[] cards)
     {
-        Villain.CurrentState = Villain.State.PlayCard;
+        Villain.SetState(Villain.State.PlayCard, EventArgs.Empty);
         return true;
     }
 }

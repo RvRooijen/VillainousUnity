@@ -49,16 +49,16 @@ public class VillainAI : VillainController
     {
         Debug.Log($"{nameof(VillainAI)} - {nameof(EnterDiscardingState)}");
         _villain.cardManagement.Hand.ForEach(_villain.cardManagement.DiscardFromHand);
-        _villain.CurrentState = Villain.State.SelectAction;
+        _villain.SetState(Villain.State.SelectAction, EventArgs.Empty);
     }
     
     private void EnterPlayCardState(object sender, EventArgs e)
     {
-        _villain.CurrentState = Villain.State.SelectAction;
+        _villain.SetState(Villain.State.SelectAction, EventArgs.Empty);
     }
     
     private void EnterMoveItemAllyState(object sender, EventArgs e)
     {
-        _villain.CurrentState = Villain.State.SelectAction;
+        _villain.SetState(Villain.State.SelectAction, EventArgs.Empty);
     }
 }

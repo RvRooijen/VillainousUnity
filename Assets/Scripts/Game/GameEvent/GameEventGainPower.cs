@@ -1,11 +1,13 @@
+using System;
+
 public class GameEventGainPower : GameEvent
 {
     public int Value;
 
-    public override bool Execute(params Card[] cards)
+    public override bool Execute(Villain owner, params Card[] cards)
     {
         Villain.IncreasePower(Value);
-        Villain.CurrentState = Villain.State.SelectAction;
+        Villain.SetState(Villain.State.SelectAction, EventArgs.Empty);
         return true;
     }
 }

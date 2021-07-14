@@ -40,7 +40,7 @@ public class CardManagement
 
     public void FillHand()
     {
-        AddToHand(VillainDeck.GetCardsFromDrawPile(EmptyHandSpots(), true));
+        AddToHand(VillainDeck.TakeFromDrawPile(EmptyHandSpots()));
     }
     
     public void AddToHand(List<Card> cards)

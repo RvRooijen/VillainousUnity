@@ -1,6 +1,6 @@
 ﻿public class GameEventVanquish : GameEvent
 {
-    public override bool Execute(params Card[] cards)
+    public override bool Execute(Villain owner, params Card[] cards)
     {
         return true;
     }

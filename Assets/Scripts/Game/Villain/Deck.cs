@@ -47,36 +47,44 @@ public class Deck
         _discardPile.Clear();
         ShuffleDrawPile();
     }
+
+    public List<Card> TakeFromDrawPile(int amount)
+    {
+        var cards = RevealCardsFromDrawPile(amount);
+        RemoveFromDrawPile(cards);
+        return cards;
+    }
     
-    public List<Card> GetCardsFromDrawPile(int amount, bool remove)
+    public void RemoveFromDrawPile(List<Card> cards)
+    {
+        _drawPile.RemoveAll(cards.Contains);
+    }
+    
+    public void RemoveFromDiscardPile(List<Card> cards)
+    {
+        _discardPile.RemoveAll(cards.Contains);
+    }
+    
+    public List<Card> RevealCardsFromDrawPile(int amount)
     {
         List<Card> cards = new List<Card>();
         for (int i = 0; i < amount; i++)
         {
             if (!_drawPile.Any()) ShuffleDiscardIntoDeck();
             cards.Add(_drawPile.Last());
-            if(remove)
-                _drawPile.RemoveAt(_drawPile.Count-1);
         }
         return cards;
     }
     
-    public List<Card> GetCardsFromDiscardPile(int amount, bool remove)
+    public List<Card> RevealCardsFromDiscardPile(int amount)
     {
         List<Card> cards = new List<Card>();
         for (int i = 0; i < amount; i++)
         {
             if (!_discardPile.Any()) break;
             cards.Add(_discardPile.Last());
-            if(remove)
-                _discardPile.RemoveAt(_discardPile.Count-1);
         }
         return cards;
-    }
-
-    public List<Card> RevealFromDeck(int amount)
-    {
-        throw new NotImplementedException();
     }
 
     public void AddCardsToDrawPile(params Card[] cards)

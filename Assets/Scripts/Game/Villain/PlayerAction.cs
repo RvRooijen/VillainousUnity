@@ -7,10 +7,12 @@ public class PlayerAction : SerializedScriptableObject
 {
     public Sprite Sprite;
     public GameEvent GameEvent;
+    private Villain _villain;
     public bool Available { get; private set; }
 
     public void Initialize(Villain villain)
     {
+        _villain = villain;
         GameEvent.Initialize(villain);
         Available = true;
     }
@@ -26,7 +28,7 @@ public class PlayerAction : SerializedScriptableObject
         {
             Debug.Log($"Execute action {name}");
             Available = false;
-            GameEvent.Execute();
+            GameEvent.Execute(_villain);
         }
         else
         {
