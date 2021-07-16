@@ -83,7 +83,7 @@ public class Deck
         for (int i = 0; i < amount; i++)
         {
             if (!_drawPile.Any()) ShuffleDiscardIntoDeck();
-            cards.Add(_drawPile.Last());
+            cards.Add(_drawPile[_drawPile.Count-1-i]);
         }
         return cards;
     }
@@ -94,7 +94,7 @@ public class Deck
         for (int i = 0; i < amount; i++)
         {
             if (!_discardPile.Any()) break;
-            cards.Add(_discardPile.Last());
+            cards.Add(_discardPile[_discardPile.Count-1-i]);
         }
         return cards;
     }
@@ -107,5 +107,10 @@ public class Deck
     public void AddCardsToDiscardPile(params Card[] cards)
     {
         _discardPile.AddRange(cards);
+    }
+
+    public void AddCard(Card card)
+    {
+        _drawPile.Add(card);
     }
 }

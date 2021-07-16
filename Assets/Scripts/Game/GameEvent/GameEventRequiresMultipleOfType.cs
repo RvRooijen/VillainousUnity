@@ -11,7 +11,7 @@ public class GameEventRequiresMultipleOfType : GameEvent
     [ShowInInspector, OdinSerialize]
     private Type _cardTypeToMatch;
     
-    public override bool Execute(Villain owner, params Card[] cards)
+    public override bool Execute(Villain origin, params Card[] cards)
     {
         return cards.Count(card => card.GetType() == _cardTypeToMatch) >= Amount;
     }

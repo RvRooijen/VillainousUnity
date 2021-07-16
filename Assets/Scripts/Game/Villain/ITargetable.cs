@@ -1,4 +1,4 @@
 ﻿public interface ITargetable
 {
-    public void Target(params Card[] cards);
+    public void Target(Villain origin, params Card[] cards);
 }

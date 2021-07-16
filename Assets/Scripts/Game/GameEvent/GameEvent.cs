@@ -19,7 +19,7 @@ public class GameEvent
         Villain = villain;
     }
 
-    public virtual bool Execute(Villain owner, params Card[] cards)
+    public virtual bool Execute(Villain origin, params Card[] cards)
     {
         Debug.Log($"Execute event {GetType()}");
         return true;

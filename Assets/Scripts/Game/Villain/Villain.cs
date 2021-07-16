@@ -212,7 +212,7 @@ public class Villain
         cardManagement.Hand.Remove(card);
         location.PlacedVillainCards.Add(card);
         
-        card.Play();
+        card.Play(this);
         
         Debug.Log($"Played {card} to {location}");
     }
@@ -270,9 +270,9 @@ public class Villain
         return false;
     }
 
-    public List<Card> GetFateOptions(int amount)
+    public List<Card> GetFateOptions()
     {
-        return cardManagement.FateDeck.RevealCardsFromDrawPile(amount);
+        return cardManagement.FateDeck.RevealCardsFromDrawPile(2);
     }
 
     public void Fate(List<Card> options, Card pickedOption, ITargetable targetable, Villain attacker)
@@ -286,7 +286,8 @@ public class Villain
             return;
         }
 
-        targetable.Target(pickedOption);
+        targetable.Target(attacker, pickedOption);
+        pickedOption.Play(attacker);
         cardManagement.FateDeck.AddCardsToDiscardPile(options.Where(card => card != pickedOption).ToArray());
         cardManagement.FateDeck.RemoveFromDrawPile(options);
     }

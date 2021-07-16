@@ -91,7 +91,7 @@ namespace Editor.Tests
             firstPlayer.cardManagement.VillainDeck.PutOnTop(c => c.PowerCost > 0);
             firstPlayer.cardManagement.FillHand();
 
-            Card card = firstPlayer.cardManagement.Hand[3];
+            Card card = firstPlayer.cardManagement.Hand.First();
             var location = firstPlayer.Realm.Locations[1];
             
             firstPlayer.Realm.CurrentLocation.PlayerActions.First(action => action.GameEvent is GameEventPlayCard).Execute();

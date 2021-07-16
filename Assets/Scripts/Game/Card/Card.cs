@@ -29,42 +29,42 @@ public abstract class Card : UniqueObject, ITargetable
 
     public virtual bool OnCanPlayOtherCard(Card card)
     {
-        return ExecuteEvents(GameEvent.TriggerType.OnCanPlayOtherCard, card);
+        return ExecuteEvents(GameEvent.TriggerType.OnCanPlayOtherCard, Villain, card);
     }
     
-    public virtual void Play()
+    public virtual void Play(Villain origin)
     {
-        ExecuteEvents(GameEvent.TriggerType.OnPlay);
+        ExecuteEvents(GameEvent.TriggerType.OnPlay, origin);
     }
 
-    public virtual void Discard()
+    public virtual void Discard(Villain origin)
     {
-        ExecuteEvents(GameEvent.TriggerType.OnDiscard);
+        ExecuteEvents(GameEvent.TriggerType.OnDiscard, origin);
     }
 
-    public virtual void Activate()
+    public virtual void Activate(Villain origin)
     {
-        ExecuteEvents(GameEvent.TriggerType.OnActivate);
+        ExecuteEvents(GameEvent.TriggerType.OnActivate, origin);
     }
 
-    private bool ExecuteEvents(GameEvent.TriggerType triggerType, params Card[] cards)
+    private bool ExecuteEvents(GameEvent.TriggerType triggerType, Villain origin, params Card[] cards)
     {
         return GameEvents
             .Where(e => e.TriggerType == triggerType)
-            .All(e => e.GameEvent.Execute(Villain, cards));
+            .All(e => e.GameEvent.Execute(origin, cards));
     }
 
     public virtual bool IsValidTarget(params Card[] cards)
     {
-        return ExecuteEvents(GameEvent.TriggerType.OnIsValidTarget, cards);
+        return ExecuteEvents(GameEvent.TriggerType.OnIsValidTarget, Villain, cards);
     }
     
     /// <summary>
     /// A card is targeting this card
     /// </summary>
     /// <param name="cards"></param>
-    public virtual void Target(params Card[] cards)
+    public virtual void Target(Villain origin, params Card[] cards)
     {
-        cards.ForEach(card => card.ExecuteEvents(GameEvent.TriggerType.OnTarget, this));
+        cards.ForEach(card => card.ExecuteEvents(GameEvent.TriggerType.OnTarget, origin, this));
     }
 }

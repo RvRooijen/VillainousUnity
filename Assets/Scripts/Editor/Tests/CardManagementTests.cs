@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Editor.Tests
 {
@@ -21,7 +22,7 @@ namespace Editor.Tests
             firstPlayer.CurrentState.Should().Be(Villain.State.PickFateCard);
             
             var fateTargetLocation = otherPlayer.Realm.Locations.First();
-            var possibleCards = otherPlayer.GetFateOptions(2);
+            var possibleCards = otherPlayer.GetFateOptions();
             
             firstPlayer.SetState(Villain.State.PlayFateCard, new PlayFateCardEventArgs {Target = otherPlayer, Card = possibleCards.First()});
             firstPlayer.CurrentState.Should().Be(Villain.State.PlayFateCard);

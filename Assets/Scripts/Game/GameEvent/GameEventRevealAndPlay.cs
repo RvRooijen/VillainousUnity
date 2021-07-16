@@ -12,7 +12,7 @@ public class GameEventRevealAndPlay : GameEvent
     [ShowInInspector, OdinSerialize]
     private Type _cardTypeToMatch;
     
-    public override bool Execute(Villain owner, params Card[] cards)
+    public override bool Execute(Villain origin, params Card[] cards)
     {
         switch (_revealFromDeckType)
         {
@@ -24,7 +24,7 @@ public class GameEventRevealAndPlay : GameEvent
                     if (card.GetType() == _cardTypeToMatch)
                     {
                         // Play card
-                        owner.SetState(Villain.State.PlayFateCard, new PlayFateCardEventArgs{Card = card, Target = Villain});
+                        origin.SetState(Villain.State.PlayFateCard, new PlayFateCardEventArgs{Card = card, Target = Villain});
                     }
                     else
                     {
