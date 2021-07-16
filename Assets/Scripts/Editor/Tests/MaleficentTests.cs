@@ -7,17 +7,7 @@ using UnityEngine;
 namespace Editor.Tests
 {
     public class MaleficentTests : CardTests
-    {
-        [Test]
-        public void LastCardInHand_ShouldBeSinisterGoon()
-        {
-            Game game = CreateGame();
-            var firstPlayer = game.Players.First();
-            firstPlayer.cardManagement.FillHand();
-            var hand = firstPlayer.cardManagement.Hand;
-            hand[3].name.Should().Be("Sinister Goon(Clone)");
-        }
-        
+    {   
         [Test]
         public void Card_Aurora()
         {
@@ -40,6 +30,12 @@ namespace Editor.Tests
             
             card.PowerCost.Should().Be(0);
             card.Should().BeOfType<HeroCard>();
+        }
+
+        [Test]
+        public void Card_Guards()
+        {
+            
         }
     }
 }

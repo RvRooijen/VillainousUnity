@@ -1,4 +1,4 @@
 ﻿public interface ITargetable
 {
-    public void Target(Card card);
+    public void Target(params Card[] cards);
 }

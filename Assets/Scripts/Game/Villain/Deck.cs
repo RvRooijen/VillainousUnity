@@ -11,6 +11,18 @@ public class Deck
 
     public int CardsInDrawPile => _drawPile.Count;
     public int CardsInDiscardPile => _discardPile.Count;
+
+    public List<Card> GetDrawPile()
+    {
+        return _drawPile;
+    }
+
+    public void PutOnTop(Func<Card, bool> predicate)
+    {
+        Card card = _drawPile.FirstOrDefault(predicate);
+        _drawPile.Remove(card);
+        _drawPile.Add(card);
+    }
     
     public Deck(Dictionary<Card, int> cards, Villain villain)
     {

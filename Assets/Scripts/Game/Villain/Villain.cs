@@ -231,7 +231,7 @@ public class Villain
             return false;
         }
 
-        if (!IsAllowedByOtherCard(card, location))
+        if (!IsAllowedByOtherCards(card, location))
         {
             failType = PlayCardFailType.BlockedByCard;
             return false;
@@ -247,7 +247,7 @@ public class Villain
         return true;
     }
 
-    private bool IsAllowedByOtherCard(Card card, Location location)
+    private bool IsAllowedByOtherCards(Card card, Location location)
     {
         foreach (Card placedCard in location.PlacedVillainCards)
         {

@@ -60,4 +60,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  Title: AURORA
+  Description: When Aurora is played, reveal the top card of Maleficent's Fate deck.
+    If it is a Hero, play it. Otherwise, return it to the top of the deck.
   PowerCost: 0
+  AttachedCards: []

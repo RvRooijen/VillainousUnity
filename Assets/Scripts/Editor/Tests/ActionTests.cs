@@ -88,6 +88,7 @@ namespace Editor.Tests
             Game game = CreateGame();
             var firstPlayer = game.Players.First();
             firstPlayer.Realm.Move(firstPlayer.Realm.Locations[1]).Should().BeTrue();
+            firstPlayer.cardManagement.VillainDeck.PutOnTop(c => c.PowerCost > 0);
             firstPlayer.cardManagement.FillHand();
 
             Card card = firstPlayer.cardManagement.Hand[3];

@@ -7,7 +7,9 @@ public class GameEvent
         OnCanPlayOtherCard,
         OnPlay,
         OnActivate,
-        OnDiscard
+        OnDiscard,
+        OnTarget,
+        OnIsValidTarget,
     }
     
     protected Villain Villain;

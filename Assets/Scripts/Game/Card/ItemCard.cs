@@ -5,4 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Create ItemCard", fileName = "ItemCard", order = 0)]
 public class ItemCard : Card
 {
+    
 }

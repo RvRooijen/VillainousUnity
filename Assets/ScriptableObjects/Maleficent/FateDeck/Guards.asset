@@ -20,4 +20,48 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: Guid
+      Entry: 2
+      Data: 2b7657ea43f8473e9e62024a06de3ce0
+    - Name: GameEvents
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[Card+TriggerEvent, Game]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: Card+TriggerEvent, Game
+    - Name: TriggerType
+      Entry: 3
+      Data: 5
+    - Name: GameEvent
+      Entry: 7
+      Data: 1|GameEventRequiresMultipleOfType, Game
+    - Name: _cardTypeToMatch
+      Entry: 7
+      Data: 2|System.RuntimeType, mscorlib
+    - Name: 
+      Entry: 1
+      Data: AllyCard, Game
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Title: Guards
+  Description: When performing a Vanquish action to defeat Guards, at least two Allies
+    must be used.
+  PowerCost: 0
+  AttachedCards: []
