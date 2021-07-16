@@ -19,7 +19,6 @@ namespace Editor.Tests
             
             card.GameEvents.Any(e => e.GameEvent is GameEventRevealAndPlay).Should().BeTrue();
             card.GameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
-            card.GameEvents.ForEach(e => e.GameEvent.Execute(firstPlayer));
             
             // Add cards to top | hero - non hero - Aurora |
             otherPlayer.cardManagement.FateDeck.PutOnTop(c => c is HeroCard);
@@ -47,8 +46,6 @@ namespace Editor.Tests
             
             // Aurora should have triggered
             firstPlayer.CurrentState.Should().Be(Villain.State.PlayFateCard);
-            
-            otherPlayer.Fate(new List<Card> {card}, card, otherPlayer.Realm.Locations.First(), firstPlayer);
 
             otherPlayer.Realm.Locations.First().PlacedFateCards.Count.Should().Be(1);
             

@@ -285,10 +285,13 @@ public class Villain
             Debug.LogError($"Picked option is not available {pickedOption}");
             return;
         }
+        
+        attacker.SetState(State.SelectAction, EventArgs.Empty);
 
-        targetable.Target(attacker, pickedOption);
-        pickedOption.Play(attacker);
         cardManagement.FateDeck.AddCardsToDiscardPile(options.Where(card => card != pickedOption).ToArray());
         cardManagement.FateDeck.RemoveFromDrawPile(options);
+        
+        targetable.Target(attacker, pickedOption);
+        pickedOption.Play(attacker);
     }
 }
