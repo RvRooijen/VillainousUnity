@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Create HeroCard", fileName = "HeroCard", order = 0)]
 public class HeroCard : Card
 {
-    [ShowInInspector]
+    [SerializeField]
     private int _strength;
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
@@ -21,8 +22,8 @@ namespace Editor.Tests
             firstPlayer.SetState(Villain.State.PickFateCard, new PickFateCardEventArgs {Target = otherPlayer});
             firstPlayer.CurrentState.Should().Be(Villain.State.PickFateCard);
             
-            var fateTargetLocation = otherPlayer.Realm.Locations.First();
-            var possibleCards = otherPlayer.GetFateOptions();
+            Location fateTargetLocation = otherPlayer.Realm.Locations.First();
+            List<Card> possibleCards = otherPlayer.GetFateOptions();
             
             firstPlayer.SetState(Villain.State.PlayFateCard, new PlayFateCardEventArgs {Target = otherPlayer, Card = possibleCards.First()});
             firstPlayer.CurrentState.Should().Be(Villain.State.PlayFateCard);

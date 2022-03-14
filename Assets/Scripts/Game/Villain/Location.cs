@@ -25,7 +25,7 @@ public class Location : SerializedScriptableObject, ITargetable
         PlayerActions.ForEach(action => action.Initialize(villain));
     }
 
-    public void Target(Villain origin, params Card[] cards)
+    public void AddFateCard(Villain origin, params Card[] cards)
     {
         PlacedFateCards.AddRange(cards);
     }

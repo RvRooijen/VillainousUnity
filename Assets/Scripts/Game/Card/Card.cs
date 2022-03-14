@@ -63,7 +63,7 @@ public abstract class Card : UniqueObject, ITargetable
     /// A card is targeting this card
     /// </summary>
     /// <param name="cards"></param>
-    public virtual void Target(Villain origin, params Card[] cards)
+    public virtual void AddFateCard(Villain origin, params Card[] cards)
     {
         cards.ForEach(card => card.ExecuteEvents(GameEvent.TriggerType.OnTarget, origin, this));
     }

@@ -46,6 +46,7 @@ public class Villain
         PickMoveItemAlly,
         MoveItemAlly,
         ChooseFateTarget,
+        ChooseVanquishTarget,
         PickFateCard,
         PlayFateCard,
         PlaceCard,
@@ -98,10 +99,16 @@ public class Villain
         StateChangedEvents.Add(State.PlayCard, EnterPlayCardState);
         StateChangedEvents.Add(State.PickMoveItemAlly, EnterPickMoveItemAlly);
         StateChangedEvents.Add(State.MoveItemAlly, EnterMoveItemAllyState);
-        StateChangedEvents.Add(State.ChooseFateTarget, EnterChooseFateCardState);
+        StateChangedEvents.Add(State.ChooseFateTarget, EnterChooseFateTargetState);
+        StateChangedEvents.Add(State.ChooseVanquishTarget, EnterChooseVanquishTargetState);
         StateChangedEvents.Add(State.PickFateCard, EnterPickFateCardState);
         StateChangedEvents.Add(State.PlayFateCard, EnterPlayFateCardState);
         StateChangedEvents.Add(State.PlaceCard, EnterPlaceCardState);
+    }
+
+    private void EnterChooseVanquishTargetState(object sender, EventArgs e)
+    {
+        
     }
 
     protected virtual void EnterPlaceCardState(object sender, EventArgs e)
@@ -121,7 +128,7 @@ public class Villain
         }
     }
 
-    protected virtual void EnterChooseFateCardState(object sender, EventArgs e)
+    protected virtual void EnterChooseFateTargetState(object sender, EventArgs e)
     {
         
     }
@@ -291,7 +298,7 @@ public class Villain
         cardManagement.FateDeck.AddCardsToDiscardPile(options.Where(card => card != pickedOption).ToArray());
         cardManagement.FateDeck.RemoveFromDrawPile(options);
         
-        targetable.Target(attacker, pickedOption);
+        targetable.AddFateCard(attacker, pickedOption);
         pickedOption.Play(attacker);
     }
 }

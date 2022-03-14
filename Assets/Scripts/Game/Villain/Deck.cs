@@ -23,7 +23,14 @@ public class Deck
         _drawPile.Remove(card);
         _drawPile.Add(card);
     }
-    
+
+    public void PutAllOnTop(Func<Card, bool> predicate)
+    {
+        var match = _drawPile.Where(predicate).ToList();
+        _drawPile.RemoveAll(card => match.Contains(card));
+        _drawPile.AddRange(match);
+    }
+
     public Deck(Dictionary<Card, int> cards, Villain villain)
     {
         _villain = villain;
