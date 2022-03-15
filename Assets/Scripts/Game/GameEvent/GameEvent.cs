@@ -10,6 +10,7 @@ public class GameEvent
         OnDiscard,
         OnTarget,
         OnIsValidTarget,
+        OnDestroyed
     }
     
     protected Villain Villain;

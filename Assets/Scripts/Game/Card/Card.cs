@@ -67,4 +67,9 @@ public abstract class Card : UniqueObject, ITargetable
     {
         cards.ForEach(card => card.ExecuteEvents(GameEvent.TriggerType.OnTarget, origin, this));
     }
+
+    public void OnDestroyed(Villain origin)
+    {
+        ExecuteEvents(GameEvent.TriggerType.OnDestroyed, origin);
+    }
 }

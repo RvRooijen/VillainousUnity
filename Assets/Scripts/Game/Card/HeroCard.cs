@@ -6,5 +6,5 @@ using UnityEngine;
 public class HeroCard : Card
 {
     [SerializeField]
-    private int _strength;
+    public int Strength { get; private set; }
 }

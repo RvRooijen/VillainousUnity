@@ -99,15 +99,11 @@ namespace Editor.Tests
             // First player places 2 allies on the board
             {
                 firstPlayer.IncreasePower(100);
-
                 firstPlayer.cardManagement.VillainDeck.PutAllOnTop(c => c is AllyCard);
-
                 card.GameEvents.Any(e => e.GameEvent is GameEventShouldContainCards).Should().BeTrue();
                 card.GameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
                 firstPlayer.cardManagement.FateDeck.AddCard(card);
-
                 firstPlayer.cardManagement.FillHand();
-
                 firstPlayer.Realm.Move(firstPlayer.Realm.Locations[2]).Should().BeTrue();
                 firstPlayer.Realm.CurrentLocation.PlayerActions.First(action => action.GameEvent is GameEventGainPower)
                     .Execute();
@@ -137,6 +133,29 @@ namespace Editor.Tests
                 otherPlayer.CurrentState.Should().Be(Villain.State.PlayFateCard);
                 firstPlayer.Fate(possibleCards, possibleCards.First(), fateTargetLocation, otherPlayer);
                 otherPlayer.EndTurn();
+            }
+
+            {
+                var oldLocation = firstPlayer.Realm.CurrentLocation;
+                firstPlayer.StartTurn();
+                // Move to location with vanquish action
+                firstPlayer.Realm.Move(firstPlayer.Realm.Locations[3]).Should().BeTrue();
+                firstPlayer.Realm.CurrentLocation.PlayerActions.First(action => action.GameEvent is GameEventVanquish)
+                    .Execute();
+                
+                // Attack with one ally should fail
+                oldLocation.Vanquish(firstPlayer, (HeroCard)oldLocation.PlacedFateCards.First(),
+                    oldLocation.PlacedVillainCards.Cast<AllyCard>().First());
+
+                oldLocation.PlacedFateCards.Should().NotBeEmpty();
+                oldLocation.PlacedVillainCards.Should().NotBeEmpty();
+                
+                // Attack with multiple should succeed
+                oldLocation.Vanquish(firstPlayer, (HeroCard)oldLocation.PlacedFateCards.First(),
+                    oldLocation.PlacedVillainCards.Cast<AllyCard>().ToArray());
+                
+                oldLocation.PlacedFateCards.Should().BeEmpty();
+                oldLocation.PlacedVillainCards.Should().BeEmpty();
             }
         }
     }

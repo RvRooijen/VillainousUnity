@@ -29,4 +29,16 @@ public class Location : SerializedScriptableObject, ITargetable
     {
         PlacedFateCards.AddRange(cards);
     }
+
+    public void Vanquish(Villain origin, HeroCard target, params AllyCard[] attackers)
+    {
+        if (!origin.IsInCorrectState(Villain.State.ChooseVanquishTarget)) return;
+        if (!target.IsValidTarget(attackers)){ Debug.Log("Not a valid target"); return;}
+        if (attackers.Sum(card => card.Strength) < target.Strength){ Debug.Log("Attackers don't have enough strength"); return;}
+        target.OnDestroyed(origin);
+        attackers.ForEach(card => card.OnDestroyed(origin));
+        PlacedFateCards.Remove(target);
+        PlacedVillainCards.RemoveAll(attackers.Contains);
+        Debug.Log($"{attackers.Length} attackers vanquished {target}");
+    }
 }
