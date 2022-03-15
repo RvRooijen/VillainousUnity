@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Should contain cards of type to a minimal of amount
 /// </summary>
-public class GameEventShouldContainCards : CardGameEvent
+public class GameEventIncreasePowerCost : GameEvent
 {
     [SerializeField]
     private int _amount;

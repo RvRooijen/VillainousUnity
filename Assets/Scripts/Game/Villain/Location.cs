@@ -41,4 +41,9 @@ public class Location : SerializedScriptableObject, ITargetable
         PlacedVillainCards.RemoveAll(attackers.Contains);
         Debug.Log($"{attackers.Length} attackers vanquished {target}");
     }
+
+    public void Attach(Villain origin, Card target, Card attachment)
+    {
+        if (!target.IsValidTarget(attachment)){ Debug.Log("Not a valid target"); return;}
+    }
 }

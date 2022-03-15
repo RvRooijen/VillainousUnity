@@ -40,8 +40,8 @@ namespace Editor.Tests
             var card = CreateCard(path, game, out var firstPlayer, out var otherPlayer, out var hand, true);
             card.Initialize(otherPlayer);
             
-            card.GameEvents.Any(e => e.GameEvent is GameEventRevealAndPlay).Should().BeTrue();
-            card.GameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
+            card.CardGameEvents.Any(e => e.GameEvent is GameEventRevealAndPlay).Should().BeTrue();
+            card.CardGameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
             
             // Add cards to top | hero - non hero - Aurora |
             otherPlayer.cardManagement.FateDeck.PutOnTop(c => c is HeroCard);
@@ -68,8 +68,8 @@ namespace Editor.Tests
             var card = CreateCard(path, game, out var firstPlayer, out var otherPlayer, out var hand, true);
             card.Initialize(otherPlayer);
             
-            card.GameEvents.Any(e => e.GameEvent is GameEventRevealAndPlay).Should().BeTrue();
-            card.GameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
+            card.CardGameEvents.Any(e => e.GameEvent is GameEventRevealAndPlay).Should().BeTrue();
+            card.CardGameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
             
             // Add cards to top | hero - non hero - Aurora |
             otherPlayer.cardManagement.FateDeck.PutOnTop(c => !(c is HeroCard));
@@ -96,12 +96,17 @@ namespace Editor.Tests
             var card = CreateCard(path, game, out var firstPlayer, out var otherPlayer, out var hand, false);
             card.Initialize(otherPlayer);
 
+            firstPlayer.IncreasePower(100);
+            
+            // Check card details
+            card.GetType().Should().Be<HeroCard>();
+            ((HeroCard)card).Strength.Should().Be(3);
+            card.CardGameEvents.Any(e => e.GameEvent is GameEventShouldContainCards).Should().BeTrue();
+            card.CardGameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
+            
             // First player places 2 allies on the board
             {
-                firstPlayer.IncreasePower(100);
                 firstPlayer.cardManagement.VillainDeck.PutAllOnTop(c => c is AllyCard);
-                card.GameEvents.Any(e => e.GameEvent is GameEventShouldContainCards).Should().BeTrue();
-                card.GameEvents.ForEach(e => e.GameEvent.Initialize(otherPlayer));
                 firstPlayer.cardManagement.FateDeck.AddCard(card);
                 firstPlayer.cardManagement.FillHand();
                 firstPlayer.Realm.Move(firstPlayer.Realm.Locations[2]).Should().BeTrue();

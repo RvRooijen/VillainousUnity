@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Create AllyCard", fileName = "AllyCard", order = 0)]
 public class AllyCard : Card

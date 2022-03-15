@@ -12,14 +12,14 @@ namespace Editor.Tests
         {
             Game game = CreateGame();
             var card = ScriptableObject.CreateInstance<HeroCard>();
-            card.GameEvents.Add(new Card.TriggerEvent(){GameEvent = new GameEventRevealAndPlay(), TriggerType = GameEvent.TriggerType.OnPlay});
+            card.CardGameEvents.Add(new Card.TriggerEvent(){GameEvent = new GameEventRevealAndPlay(), TriggerType = GameEvent.TriggerType.OnPlay});
             
             var firstPlayer = game.Players.First();
             var hand = firstPlayer.cardManagement.Hand;
             hand.Add(card);
             
             // Assert
-            card.GameEvents.Any(e => e.GameEvent is GameEventRevealAndPlay).Should().BeTrue();
+            card.CardGameEvents.Any(e => e.GameEvent is GameEventRevealAndPlay).Should().BeTrue();
             card.PowerCost.Should().Be(0);
             card.Should().BeOfType<HeroCard>();
         }

@@ -244,7 +244,13 @@ public class Villain
             return false;
         }
 
-        if (!PayPower(card.PowerCost))
+        int additionalCost = Realm.Locations
+            .Sum(realmLocation => realmLocation.PlacedFateCards
+                .Sum(fateCard => fateCard.PowerCostModifiers
+                    .Where(modifier => modifier.Execute(card))
+                    .Sum(modifier => modifier.Modifier)));
+
+        if (!PayPower(card.PowerCost + additionalCost))
         {
             failType = PlayCardFailType.InsufficientPower;
             return false;

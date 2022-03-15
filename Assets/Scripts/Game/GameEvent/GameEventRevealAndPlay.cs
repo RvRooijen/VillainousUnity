@@ -7,7 +7,7 @@ using Sirenix.Serialization;
 /// <summary>
 /// Reveal a card for a deck type and if it matches the card type it will be played
 /// </summary>
-public class GameEventRevealAndPlay : GameEvent
+public class GameEventRevealAndPlay : CardGameEvent
 {
     [ShowInInspector]
     private CardManagement.DeckType _revealFromDeckType;
